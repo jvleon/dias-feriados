@@ -42,12 +42,10 @@ export const fetchData = () => dispatch => {
 export const saveData = (data, id, callback) => dispatch => {
   const header = new Headers();
   header.append('Content-Type', 'application/json');
-  console.log(JSON.stringify(data));
   dispatch(activeLoader());
   fetch(`${API}/days/${id}`, { method: 'PUT', body: JSON.stringify(data) , headers: header})
     .then(response => response.json())
     .then(response => {
-      console.log(response)
       callback();
       dispatch(fetchData());
     })

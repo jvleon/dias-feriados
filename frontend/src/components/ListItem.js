@@ -53,10 +53,8 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
       form['dia'] !== null &&
       form['mes'] !== null
     ) {
-      console.log('>>', _id);
       save(form, _id, onSuccess);
     } else {
-      console.log('else');
       toast.error('Todos los campos son requeridos');
     }
   };

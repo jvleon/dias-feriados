@@ -6,10 +6,7 @@ const daysSchema = new Schema({
   info: String,
   dia: Number,
   mes: Number,
-  id: {
-    type: String,
-    unique: true,
-  }
+  id: String,
 }, {
   timestamps: true
 });

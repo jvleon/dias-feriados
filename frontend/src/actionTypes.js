@@ -1,0 +1,3 @@
+export const GET_DATA = 'GET_DATA';
+export const ACTIVE_LOADING = 'ACTIVE_LOADING';
+export const DEACTIVE_LOADING = 'DEACTIVE_LOADING';

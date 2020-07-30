@@ -9,8 +9,9 @@ import {
   Col
 } from 'reactstrap';
 import Field from './Field';
+import { toast } from 'react-toastify';
 
-const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
+const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
   const [form, setForm] = useState({
     dia,
     motivo,
@@ -37,6 +38,27 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
       });
       setEdit(false)
     } else setEdit(true);
+  };
+
+  const onSuccess = () => {
+    handleEdit();
+    toast.success('Cambios realizados');
+  };
+
+  const onSave = () => {
+    if(
+      form['motivo'] !== null &&
+      form['tipo'] !== null &&
+      form['info'] !== null &&
+      form['dia'] !== null &&
+      form['mes'] !== null
+    ) {
+      console.log('>>', _id);
+      save(form, _id, onSuccess);
+    } else {
+      console.log('else');
+      toast.error('Todos los campos son requeridos');
+    }
   };
   
   return (
@@ -81,6 +103,15 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
             value={form['dia']}
             type="number"
           />
+          <Field
+            onChange={handleChange}
+            edit={edit}
+            size={3}
+            label="Motivo"
+            name="motivo"
+            value={form['motivo']}
+            type="string"
+          />
         </Row>
         <Row className="pt-4">
           <Col xl={12}>
@@ -94,7 +125,13 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
                   >
                     Cancelar
                   </Button>
-                  <Button color="success" onClick={save}>Guardar</Button>
+                  <Button 
+                    color="success" 
+                    onClick={onSave}
+                    type="button"
+                  >
+                      Guardar
+                  </Button>
                 </>
               :
                 <Button color="primary" onClick={handleEdit}>Editar</Button>
@@ -112,7 +149,8 @@ ListItem.propTypes = {
   info: PropTypes.string.isRequired,
   mes: PropTypes.number.isRequired,
   dia: PropTypes.number.isRequired,
-  save: PropTypes.func.isRequired
+  save: PropTypes.func.isRequired,
+  _id: PropTypes.string.isRequired
 };
 
 

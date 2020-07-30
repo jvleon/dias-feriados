@@ -42,7 +42,7 @@ Field.propTypes = {
   type: PropTypes.string,
   edit: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   label: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired

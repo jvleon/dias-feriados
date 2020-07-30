@@ -70,6 +70,7 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
             label="Mes"
             name="mes"
             value={form['mes']}
+            type="number"
           />
           <Field
             onChange={handleChange}
@@ -78,6 +79,7 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
             label="Dia"
             name="dia"
             value={form['dia']}
+            type="number"
           />
         </Row>
         <Row className="pt-4">
@@ -102,6 +104,15 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save }) => {
       </ListGroupItemText>
     </ListGroupItem>
   );
+};
+
+ListItem.propTypes = {
+  motivo: PropTypes.string.isRequired,
+  tipo: PropTypes.string.isRequired,
+  info: PropTypes.string.isRequired,
+  mes: PropTypes.number.isRequired,
+  dia: PropTypes.number.isRequired,
+  save: PropTypes.func.isRequired
 };
 
 

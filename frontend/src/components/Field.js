@@ -25,7 +25,7 @@ const Field = ({ edit, name, value, label, size, type, onChange }) => {
             </Col>
           </FormGroup>
         :
-          type === 'text' ?
+          type === 'text' || type === 'number' ?
             <span>{`${label}: ${value}`}</span>
           :
             <a href={value}>{value}</a>

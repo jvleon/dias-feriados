@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const URI = process.env.MONGOOSE_URI
-    ? process.env.MONGOOSE_URI
-    : 'mongodb://localhost/merndatabase';
+const URI = process.env.MONGODB_URI
+    ? process.env.MONGODB_URI
+    : 'mongodb://localhost/feriados';
 
 mongoose.connect(URI, {
   useNewUrlParser: true,

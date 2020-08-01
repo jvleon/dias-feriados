@@ -14,7 +14,7 @@ daysCtrl.getDay = async (req, res) => {
 
 daysCtrl.updateDays = async (req, res) => {
   const { motivo, tipo, info, dia, mes } = req.body;
-  await Model.findOneAndUpdate(req.params.id, {
+  await Model.findOneAndUpdate({ _id: req.params.id }, {
     motivo,
     tipo,
     info,

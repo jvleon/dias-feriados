@@ -19,6 +19,7 @@ function App() {
     <Loader />
     <Home />
     <ToastContainer />
+    <GlobalStyle />
   </Provider>
   );
 }

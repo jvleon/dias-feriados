@@ -40,14 +40,15 @@ export const fetchData = () => dispatch => {
 };
 
 export const saveData = (data, id, callback) => dispatch => {
+  dispatch(activeLoader());
   const header = new Headers();
   header.append('Content-Type', 'application/json');
   dispatch(activeLoader());
   fetch(`${API}/days/${id}`, { method: 'PUT', body: JSON.stringify(data) , headers: header})
     .then(response => response.json())
     .then(response => {
+      dispatch(deactiveLoader());
       callback();
-      dispatch(fetchData());
     })
     .catch((error) => {
       console.log(error);

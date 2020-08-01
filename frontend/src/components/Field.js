@@ -17,7 +17,7 @@ const Field = ({ edit, name, value, label, size, type, onChange }) => {
             <Label xl={1} for="exampleEmail">{label}</Label>
             <Col xl={11}>
               <Input
-                type="text"
+                type={type}
                 name={name}
                 value={value}
                 onChange={onChange}

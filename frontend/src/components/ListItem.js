@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   ListGroupItem,
@@ -11,31 +11,31 @@ import {
 import Field from './Field';
 import { toast } from 'react-toastify';
 
-const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
+const ListItem = ({ data, onSuccessSave, save }) => {
   const [form, setForm] = useState({
-    dia,
-    motivo,
-    tipo,
-    info,
-    mes
+    motivo: '',
+    tipo: '',
+    info: '',
+    dia: null,
+    mes: null
   });
+
+  useEffect(() => {
+    setForm({ ...data });
+  }, [data]);
+
   const [edit, setEdit] = useState(false);
 
   const handleChange = ({target: { name, value }}) => {
     const data = form;
     data[name] = value;
+    delete data._id
     setForm({ ...data });
   };
 
   const handleEdit = () => {
     if(edit) {
-      setForm({
-        dia,
-        motivo,
-        tipo,
-        info,
-        mes
-      });
+      setForm({ ...data });
       setEdit(false)
     } else setEdit(true);
   };
@@ -43,6 +43,7 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
   const onSuccess = () => {
     handleEdit();
     toast.success('Cambios realizados');
+    onSuccessSave();
   };
 
   const onSave = () => {
@@ -53,7 +54,7 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
       form['dia'] !== null &&
       form['mes'] !== null
     ) {
-      save(form, _id, onSuccess);
+      save(form, data._id, onSuccess);
     } else {
       toast.error('Todos los campos son requeridos');
     }
@@ -61,7 +62,7 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
   
   return (
     <ListGroupItem>
-      <ListGroupItemHeading>{motivo}</ListGroupItemHeading>
+      <ListGroupItemHeading>{data.motivo}</ListGroupItemHeading>
       <ListGroupItemText>
         <Row className="pt-2">
           <Field
@@ -108,7 +109,6 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
             label="Motivo"
             name="motivo"
             value={form['motivo']}
-            type="string"
           />
         </Row>
         <Row className="pt-4">
@@ -142,13 +142,16 @@ const ListItem = ({ dia, motivo, tipo, info, mes, save, _id }) => {
 };
 
 ListItem.propTypes = {
-  motivo: PropTypes.string.isRequired,
-  tipo: PropTypes.string.isRequired,
-  info: PropTypes.string.isRequired,
-  mes: PropTypes.number.isRequired,
-  dia: PropTypes.number.isRequired,
   save: PropTypes.func.isRequired,
-  _id: PropTypes.string.isRequired
+  onSuccessSave: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    motivo: PropTypes.string.isRequired,
+    tipo: PropTypes.string.isRequired,
+    info: PropTypes.string.isRequired,
+    mes: PropTypes.number.isRequired,
+    dia: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
+  })
 };
 
 
